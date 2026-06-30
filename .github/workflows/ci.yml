@@ -1,0 +1,22 @@
+# .github/workflows/ci.yml
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-package:
+    runs-on:
+      - native
+    steps:
+      - run: pnpm install
+      - run: pnpm build
+
+  deploy-preview:
+    runs-on:
+      - native
+    steps:
+      - run: pnpm install
+      - run: pnpm build:preview
