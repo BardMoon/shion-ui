@@ -1,7 +1,9 @@
 <script lang="ts">
   import type { ClassValue, HTMLAttributes } from "svelte/elements";
   import type { MenuItemType } from "$lib/types";
-  import { Popover, Dropdown, DropdownItem, Separator } from "$lib/components";
+  import { Popover, Separator } from "$lib/components";
+  import Dropdown from "./Dropdown.svelte";
+  import DropdownItem from "./DropdownItem.svelte";
 
   type Props = HTMLAttributes<HTMLUListElement> & {
     class?: ClassValue;
