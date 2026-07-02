@@ -31,7 +31,6 @@
   fullWidth
   class={["menu-item"]}
   role="menuitem"
-  tabindex={-1}
   {selected}
   {tone}
   {onclick}

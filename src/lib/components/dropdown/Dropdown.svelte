@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ClassValue, HTMLAttributes } from "svelte/elements";
   import type { MenuItemType } from "$lib/types";
-  import { Separator, Popover, rovingFocusItem } from "$lib/components";
+  import { Popover, Separator, rovingFocusItem } from "$lib/components";
   import Dropdown from "./Dropdown.svelte";
   import DropdownItem from "./DropdownItem.svelte";
 
@@ -24,7 +24,7 @@
     ...props
   }: Props = $props();
 
-  let activeIndex = $state<number | null>(null);
+  let openSubmenuIndex = $state<number | null>(null);
 
   const itemEls = new Map<number, HTMLElement>();
 
@@ -41,73 +41,47 @@
     return Array.from(itemEls.keys()).sort((a, b) => a - b);
   }
 
-  function focusIndex(i: number | null) {
-    activeIndex = i;
-    if (i !== null) itemEls.get(i)?.focus();
-  }
-
-  function moveFocus(delta: 1 | -1) {
-    const indices = orderedIndices();
-    if (indices.length === 0) return;
-    const currentPos = activeIndex === null ? -1 : indices.indexOf(activeIndex);
-    const nextPos = (currentPos + delta + indices.length) % indices.length;
-    focusIndex(indices[nextPos]);
+  function currentFocusedIndex(): number | null {
+    for (const [index, el] of itemEls) {
+      if (el === document.activeElement) return index;
+    }
+    return null;
   }
 
   function openSubmenu(i: number) {
     const item = items[i];
     if (item.type === "separator" || !item.children?.length) return;
-    activeIndex = i;
+    openSubmenuIndex = i;
   }
 
   function onKeydown(e: KeyboardEvent) {
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        moveFocus(1);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        moveFocus(-1);
-        break;
-      case "ArrowRight": {
-        if (activeIndex === null) break;
-        const item = items[activeIndex];
-        if (item.type !== "separator" && item.children?.length) {
-          e.preventDefault();
-          openSubmenu(activeIndex);
-        }
-        break;
+    if (e.key === "Enter" || e.key === " ") {
+      const i = currentFocusedIndex();
+      if (i === null) return;
+      const item = items[i];
+      if (item.type === "separator") return;
+      e.preventDefault();
+      if (item.children?.length) {
+        openSubmenu(i);
+      } else {
+        item.onclick?.();
+        onclick?.();
       }
-      case "ArrowLeft":
-        e.preventDefault();
-        onclose?.();
-        break;
-      case "Enter":
-      case " ": {
-        if (activeIndex === null) break;
-        const item = items[activeIndex];
-        if (item.type === "separator") break;
-        e.preventDefault();
-        if (item.children?.length) {
-          openSubmenu(activeIndex);
-        } else {
-          item.onclick?.();
-          onclick?.();
-        }
-        break;
-      }
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      onclose?.();
     }
   }
 
   function onSubmenuClose() {
-    if (activeIndex !== null) itemEls.get(activeIndex)?.focus();
+    if (openSubmenuIndex !== null) itemEls.get(openSubmenuIndex)?.focus();
+    openSubmenuIndex = null;
   }
 
   $effect(() => {
     if (open && autofocus) {
       const indices = orderedIndices();
-      if (indices.length > 0) focusIndex(indices[0]);
+      itemEls.get(indices[0] ?? -1)?.focus();
     }
   });
 </script>
@@ -126,7 +100,7 @@
         <li
           role="none"
           class="relative"
-          onpointerenter={() => (activeIndex = i)}
+          onpointerenter={() => (openSubmenuIndex = i)}
         >
           <DropdownItem
             label={item.label}
@@ -135,13 +109,13 @@
             disabled={item.disabled}
             tone={item.tone}
             hasChildren={true}
-            selected={activeIndex === i}
+            selected={openSubmenuIndex === i}
             onclick={(e) => e.stopPropagation()}
             {@attach rovingFocusItem(registerFor(i))}
           />
-          {#if activeIndex === i}
+          {#if openSubmenuIndex === i}
             <Popover
-              open={activeIndex === i}
+              open={openSubmenuIndex === i}
               class="absolute z-50 top-0 left-full"
               onclose={onSubmenuClose}
             >
@@ -162,7 +136,6 @@
           shortcut={item.shortcut}
           disabled={item.disabled}
           tone={item.tone}
-          selected={activeIndex === i}
           onclick={() => {
             item.onclick?.();
             onclick?.();
