@@ -29,8 +29,8 @@
   --color-bg: #232629;
   --color-view: #1b1e20;
   --color-surface: #2a2e32;
-  --color-border: #3d4146;
-  --color-border-subtle: #2f3439;
+  --color-surface-border: #3d4146;
+  --color-surface-border-subtle: #2f3439;
 
   --color-text: #eff0f1;
   --color-text-sub: #7f8c8d;
@@ -50,8 +50,8 @@
     --color-bg: #eff0f1;
     --color-view: #ffffff;
     --color-surface: #fcfcfc;
-    --color-border: #bdc3c7;
-    --color-border-subtle: #e3e5e7;
+    --color-surface-border: #bdc3c7;
+    --color-surface-border-subtle: #e3e5e7;
 
     --color-text: #232629;
     --color-text-muted: #7f8c8d;

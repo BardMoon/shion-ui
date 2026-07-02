@@ -65,7 +65,7 @@
     border: 1px solid transparent;
     border-radius: var(--border-radius);
 
-    color: var(--color-breeze-text);
+    color: var(--color-text);
     background: transparent;
 
     text-align: left;
@@ -97,7 +97,7 @@
     border: none;
     border-radius: var(--border-radius);
 
-    color: var(--color-breeze-text);
+    color: var(--color-text);
     background: transparent;
   }
 

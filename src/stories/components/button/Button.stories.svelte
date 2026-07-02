@@ -55,20 +55,20 @@
 
 <Story name="Selected" args={{ selected: true }}>
   {#snippet template(args)}
-    <Button {...args}>選択中</Button>
+    <Button {...args}>Selected</Button>
   {/snippet}
 </Story>
 
 <Story name="Disabled" args={{ disabled: true }}>
   {#snippet template(args)}
-    <Button {...args}>無効</Button>
+    <Button {...args}>Disabled</Button>
   {/snippet}
 </Story>
 
 <Story name="FullWidth" args={{ fullWidth: true }}>
   {#snippet template(args)}
     <div style="width: 300px;">
-      <Button {...args}>横幅いっぱい</Button>
+      <Button {...args}>Full Width</Button>
     </div>
   {/snippet}
 </Story>

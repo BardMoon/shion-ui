@@ -18,7 +18,7 @@
 <style>
   .separator {
     flex-shrink: 0;
-    background: var(--color-breeze-border);
+    background: var(--color-border);
   }
 
   .separator.horizontal {

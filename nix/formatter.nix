@@ -19,6 +19,8 @@ let
     };
     settings = {
       global.excludes = [
+        "**/dist/**"
+
         "*.lock"
         "pnpm-lock.yaml"
         "package-lock.json"
