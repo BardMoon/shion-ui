@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/sveltekit";
-import "../src/themes/theme.css";
+import "../src/lib/themes/theme.css";
 
 const preview: Preview = {
   parameters: {

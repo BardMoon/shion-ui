@@ -149,6 +149,7 @@ do_release() {
     info "Selected: $env"
 
     pnpm build
+    pnpm build-storybook
     git add .
 
     case $env in
