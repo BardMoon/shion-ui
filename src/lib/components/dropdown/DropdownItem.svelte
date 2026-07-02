@@ -2,7 +2,7 @@
   import type { Component } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { ChevronRight } from "@lucide/svelte";
-  import { Button } from "shiola-ui";
+  import { Button } from "@shiola/ui";
   import type { ButtonToneType } from "$lib/types";
 
   type Props = HTMLButtonAttributes & {
