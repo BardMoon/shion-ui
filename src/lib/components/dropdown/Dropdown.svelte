@@ -57,7 +57,7 @@
               open={hoveredIndex === i}
               class="absolute z-50 top-0 left-full"
             >
-              <Dropdown items={item.children} class="p-1" />
+              <Dropdown items={item.children} {onclick} class="p-1" />
             </Popover>
           {/if}
         </li>
