@@ -28,7 +28,7 @@
       "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
-    "./themes/theme.css": "./dist/themes/theme.css"
+    "./lib/themes/theme.css": "./dist/themes/theme.css"
   },
   "peerDependencies": {
     "svelte": "^5.56.4",
