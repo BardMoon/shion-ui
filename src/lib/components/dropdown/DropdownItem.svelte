@@ -22,6 +22,8 @@
     selected = false,
     hasChildren = false,
     onclick,
+    class: _class,
+    ...rest
   }: Props = $props();
 </script>
 
@@ -29,10 +31,12 @@
   fullWidth
   class={["menu-item"]}
   role="menuitem"
+  tabindex={-1}
   {selected}
   {tone}
   {onclick}
   onpointerdown={(e) => e.stopPropagation()}
+  {...rest}
 >
   {#if Icon}
     <Icon size={13} />

@@ -1,3 +1,7 @@
+<script module lang="ts">
+  const stack: symbol[] = [];
+</script>
+
 <script lang="ts">
   import type { ClassValue, HTMLAttributes } from "svelte/elements";
   import type { Snippet } from "svelte";
@@ -18,6 +22,17 @@
   }: Props = $props();
 
   let el = $state<HTMLDivElement | null>(null);
+  const id = Symbol();
+
+  $effect(() => {
+    if (open) {
+      stack.push(id);
+      return () => {
+        const i = stack.indexOf(id);
+        if (i !== -1) stack.splice(i, 1);
+      };
+    }
+  });
 
   $effect(() => {
     if (!open || !el) return;
@@ -55,7 +70,8 @@
     }
   }
   function onWindowKeyDown(e: KeyboardEvent) {
-    if (e.key === "Escape") {
+    if (e.key === "Escape" && stack[stack.length - 1] === id) {
+      e.stopPropagation();
       onclose?.();
     }
   }

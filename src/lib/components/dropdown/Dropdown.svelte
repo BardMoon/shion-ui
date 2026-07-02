@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ClassValue, HTMLAttributes } from "svelte/elements";
   import type { MenuItemType } from "$lib/types";
-  import { Popover, Separator } from "$lib/components";
+  import { Separator, Popover, rovingFocusItem } from "$lib/components";
   import Dropdown from "./Dropdown.svelte";
   import DropdownItem from "./DropdownItem.svelte";
 
@@ -11,6 +11,7 @@
     open?: boolean;
     onclick?: () => void;
     onclose?: () => void;
+    autofocus?: boolean;
   };
   let {
     class: className = "",
@@ -18,19 +19,105 @@
     open = true,
     onclick,
     onclose,
+    autofocus = false,
     style,
     ...props
   }: Props = $props();
 
-  let hoveredIndex = $state<number | null>(null);
+  let activeIndex = $state<number | null>(null);
+
+  const itemEls = new Map<number, HTMLElement>();
+
+  function registerFor(index: number) {
+    return (node: HTMLElement) => {
+      itemEls.set(index, node);
+      return () => {
+        itemEls.delete(index);
+      };
+    };
+  }
+
+  function orderedIndices(): number[] {
+    return Array.from(itemEls.keys()).sort((a, b) => a - b);
+  }
+
+  function focusIndex(i: number | null) {
+    activeIndex = i;
+    if (i !== null) itemEls.get(i)?.focus();
+  }
+
+  function moveFocus(delta: 1 | -1) {
+    const indices = orderedIndices();
+    if (indices.length === 0) return;
+    const currentPos = activeIndex === null ? -1 : indices.indexOf(activeIndex);
+    const nextPos = (currentPos + delta + indices.length) % indices.length;
+    focusIndex(indices[nextPos]);
+  }
+
+  function openSubmenu(i: number) {
+    const item = items[i];
+    if (item.type === "separator" || !item.children?.length) return;
+    activeIndex = i;
+  }
+
+  function onKeydown(e: KeyboardEvent) {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        moveFocus(1);
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        moveFocus(-1);
+        break;
+      case "ArrowRight": {
+        if (activeIndex === null) break;
+        const item = items[activeIndex];
+        if (item.type !== "separator" && item.children?.length) {
+          e.preventDefault();
+          openSubmenu(activeIndex);
+        }
+        break;
+      }
+      case "ArrowLeft":
+        e.preventDefault();
+        onclose?.();
+        break;
+      case "Enter":
+      case " ": {
+        if (activeIndex === null) break;
+        const item = items[activeIndex];
+        if (item.type === "separator") break;
+        e.preventDefault();
+        if (item.children?.length) {
+          openSubmenu(activeIndex);
+        } else {
+          item.onclick?.();
+          onclick?.();
+        }
+        break;
+      }
+    }
+  }
+
+  function onSubmenuClose() {
+    if (activeIndex !== null) itemEls.get(activeIndex)?.focus();
+  }
+
+  $effect(() => {
+    if (open && autofocus) {
+      const indices = orderedIndices();
+      if (indices.length > 0) focusIndex(indices[0]);
+    }
+  });
 </script>
 
 <Popover {open} {onclose} class={["menu", className]} {style}>
   <ul
     role="menu"
     oncontextmenu={(e) => e.preventDefault()}
-    onpointerdown={(e) => e.stopPropagation()}
     {...props}
+    onkeydown={onKeydown}
   >
     {#each items as item, i}
       {#if item.type === "separator"}
@@ -39,8 +126,7 @@
         <li
           role="none"
           class="relative"
-          onpointerenter={() => (hoveredIndex = i)}
-          onpointerleave={() => (hoveredIndex = null)}
+          onpointerenter={() => (activeIndex = i)}
         >
           <DropdownItem
             label={item.label}
@@ -49,15 +135,23 @@
             disabled={item.disabled}
             tone={item.tone}
             hasChildren={true}
-            selected={hoveredIndex === i}
+            selected={activeIndex === i}
             onclick={(e) => e.stopPropagation()}
+            {@attach rovingFocusItem(registerFor(i))}
           />
-          {#if hoveredIndex === i}
+          {#if activeIndex === i}
             <Popover
-              open={hoveredIndex === i}
+              open={activeIndex === i}
               class="absolute z-50 top-0 left-full"
+              onclose={onSubmenuClose}
             >
-              <Dropdown items={item.children} {onclick} class="p-1" />
+              <Dropdown
+                items={item.children}
+                class="p-1"
+                autofocus
+                {onclick}
+                onclose={onSubmenuClose}
+              />
             </Popover>
           {/if}
         </li>
@@ -68,10 +162,12 @@
           shortcut={item.shortcut}
           disabled={item.disabled}
           tone={item.tone}
+          selected={activeIndex === i}
           onclick={() => {
             item.onclick?.();
             onclick?.();
           }}
+          {@attach rovingFocusItem(registerFor(i))}
         />
       {/if}
     {/each}
