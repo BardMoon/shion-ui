@@ -1,1 +1,2 @@
-export { default as Button } from "./components/button/Button.svelte";
+export * from "./components";
+export * from "./types";
