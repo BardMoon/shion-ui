@@ -139,8 +139,35 @@ do_develop() {
     esac
 }
 do_release() {
+    local options=(
+        "patch"
+        "minor"
+        "major"
+        "$CANCEL_OPTION"
+    )
+    local env=$(select_option "${options[@]}") || return
+    info "Selected: $env"
+
     pnpm build
     git add .
+
+    case $env in
+        patch)
+            git commit -m "v0.1.4"
+            git tag v0.1.4
+            git push origin v0.1.4
+            ;;
+        minor)
+            git commit -m "v0.2.0"
+            git tag v0.2.0
+            git push origin v0.2.0
+            ;;
+        major)
+            git commit -m "v1.0.0"
+            git tag v1.0.0
+            git push origin v1.0.0
+            ;;
+    esac
 }
 
 # --- Main ---
