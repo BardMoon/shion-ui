@@ -31,7 +31,7 @@
     variant="toggle"
     class={["menu-button", "h-full text-[13px]"]}
     {selected}
-    onpointerdown={(e) => {
+    onclick={(e) => {
       e.stopPropagation();
       onopen();
     }}

@@ -26,7 +26,12 @@
 </script>
 
 <Popover {open} {onclose} class={["menu", className]} {style}>
-  <ul role="menu" oncontextmenu={(e) => e.preventDefault()} {...props}>
+  <ul
+    role="menu"
+    oncontextmenu={(e) => e.preventDefault()}
+    onpointerdown={(e) => e.stopPropagation()}
+    {...props}
+  >
     {#each items as item, i}
       {#if item.type === "separator"}
         <Separator />
@@ -52,7 +57,7 @@
               open={hoveredIndex === i}
               class="absolute z-50 top-0 left-full"
             >
-              <Dropdown items={item.children} {onclick} class="p-1" />
+              <Dropdown items={item.children} class="p-1" />
             </Popover>
           {/if}
         </li>
@@ -63,7 +68,10 @@
           shortcut={item.shortcut}
           disabled={item.disabled}
           tone={item.tone}
-          {onclick}
+          onclick={() => {
+            item.onclick?.();
+            onclick?.();
+          }}
         />
       {/if}
     {/each}

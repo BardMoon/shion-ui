@@ -48,7 +48,7 @@
       el.style.transform = `translate(${dx}px, ${dy}px)`;
     }
   });
-  function onWindowPointerDown(e: PointerEvent) {
+  function onWindowClick(e: MouseEvent) {
     if (!el) return;
     if (!el.contains(e.target as Node)) {
       onclose?.();
@@ -62,7 +62,7 @@
 </script>
 
 <svelte:window
-  onpointerdown={open ? onWindowPointerDown : undefined}
+  onclick={open ? onWindowClick : undefined}
   onkeydown={open ? onWindowKeyDown : undefined}
 />
 
@@ -71,9 +71,3 @@
     {@render children?.()}
   </div>
 {/if}
-
-<!--
-<style>
-  .popover {
-  }
-</style> -->
