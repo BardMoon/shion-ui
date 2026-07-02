@@ -1,1 +1,200 @@
 #!/usr/bin/env bash
+
+set -Eeuo pipefail
+
+readonly BOLD="\033[1m"
+readonly UNDERLINE="\033[4m"
+readonly ACCENT=$'\e[0;35m' # Purple
+readonly SUCCESS=$'\e[0;32m' # Green
+readonly INFO=$'\e[0;34m' # Blue
+readonly ERROR=$'\e[0;31m' # Red
+readonly CANCEL=$'\e[0;31m' # Red
+readonly SELECT=$'\e[0;33m' # Yellow
+readonly NC=$'\e[0m' # No Color
+
+readonly CANCEL_OPTION="${CANCEL}x${NC}| cancel"
+readonly FZF_OPTS=(
+    --delimiter='|'
+    --ansi
+    --reverse
+    --prompt="Select > "
+)
+
+declare -a COMMAND_ORDER=()
+declare -A COMMANDS=()
+declare -A DESCRIPTIONS=()
+
+register_command() {
+    local name=$1
+    local func=$2
+    shift 2
+
+    COMMAND_ORDER+=("$name")
+    COMMANDS["$name"]="$func"
+    DESCRIPTIONS["$name"]="$*"
+}
+info() {
+    printf "%b==>%b %s\n" "$INFO" "$NC" "$*"
+}
+success() {
+    printf "%b✔%b %s\n" "$SUCCESS" "$NC" "$*"
+}
+error() {
+    printf "%berror%b: %s\n" "$ERROR" "$NC" "$*" >&2
+}
+select_option() {
+    local env
+
+    env=$(printf "%s\n" "$@" | fzf "${FZF_OPTS[@]}")
+
+    [[ -z "$env" || "$env" == *"x|"* ]] && return 1
+
+    printf '%s\n' "${env%%|*}"
+}
+run() {
+    local msg=$1
+    shift
+
+    info "$msg"
+
+    "$@" || {
+        local code=$?
+        error "$msg failed (exit=$code)"
+        exit "$code"
+    }
+    success "$msg"
+}
+confirm() {
+    local prompt=${1:-"Continue?"}
+
+    read -r -p "$prompt [y/N]: " answer
+    [[ "$answer" =~ ^[Yy]([Ee][Ss])?$ ]]
+}
+
+do_setup() {
+    run "Install Pnpm packages" pnpm install
+}
+do_format() {
+    nix fmt
+}
+do_clean() {
+    run "Removing generated files" rm -rf .direnv result result-*
+    run "Removing npm packages" pnpm clean
+
+    mapfile -d '' targets < <(
+        find . -type d \( -name node_modules -o -name build \) -print0
+    )
+    printf '  %s\n' "${targets[@]}"
+
+    if confirm "Remove these directories?"; then
+        printf '%s\0' "${targets[@]}" | run "Removing build files" xargs -0 rm -rf
+        echo "Done."
+    fi
+
+    run "Reloading direnv" direnv reload
+}
+do_update() {
+    pnpm outdated
+    run "Update pnpm" pnpm upgrade
+
+    run "Update flake.lock" nix flake update
+}
+do_build() {
+    local options=(
+        "pp| ${SELECT}p${NC}npm:${SELECT}p${NC}ackage"
+        "ps| ${SELECT}p${NC}npm:${SELECT}s${NC}torybook"
+        "$CANCEL_OPTION"
+    )
+    local env
+    env=$(select_option "${options[@]}") || return
+    info "Selected: $env"
+
+    case $env in
+        pp)
+            pnpm run build
+            ;;
+        ps)
+            pnpm run build-storybook
+            ;;
+    esac
+}
+
+do_develop() {
+    local options=(
+        "pp| ${SELECT}p${NC}npm:${SELECT}p${NC}ackage"
+        "ps| ${SELECT}p${NC}npm:${SELECT}s${NC}torybook"
+        "$CANCEL_OPTION"
+    )
+    local env
+    env=$(select_option "${options[@]}") || return
+    info "Selected: $env"
+
+    case $env in
+        pp)
+            pnpm run dev
+            ;;
+        ps)
+            pnpm run storybook
+            ;;
+    esac
+}
+do_release() {
+    pnpm build
+    git add .
+}
+
+# --- Main ---
+
+register_command setup    do_setup     "Run the initialization setup."
+register_command fmt      do_format    "Run the formatter"
+register_command clean    do_clean     "Remove unused packages and garbage."
+register_command update   do_update    "Update the packages"
+register_command build    do_build     "Build the packages"
+
+register_command dev      do_develop   "Start develop"
+register_command release  do_release   "Build the packages for release"
+
+usage() {
+    printf "A script utility for managing project.\n\n"
+    printf "%bUsage:%b %b%s%b <COMMAND> [OPTIONS]\n\n" "$BOLD$UNDERLINE" "$NC" "$ACCENT" "${0##*/}" "$NC"
+    printf "%bCommands:%b\n" "$BOLD$UNDERLINE" "$NC"
+
+    local cmd
+    for cmd in "${COMMAND_ORDER[@]}"; do
+        printf "  %b%-15s%b %s\n" \
+            "$ACCENT" "$cmd" "$NC" "${DESCRIPTIONS[$cmd]}"
+    done
+
+    printf "%bOptions:%b\n" "$BOLD$UNDERLINE" "$NC"
+    printf "  %b%-15s%b %s\n" \
+        "$INFO" "-h, --help" "$NC" "Show this help."
+}
+
+main() {
+    local cmd=${1:-}
+    shift || true
+
+    if [[ -z "$cmd" ]]; then
+        usage
+        return
+    fi
+
+    case "$cmd" in
+        -h|--help|help)
+            usage
+            return
+            ;;
+    esac
+
+    local func=${COMMANDS[$cmd]:-}
+
+    if [[ -z "$func" ]]; then
+        error "Unknown command: $cmd"
+        usage
+        return 1
+    fi
+
+    "$func" "$@"
+}
+
+main "$@"

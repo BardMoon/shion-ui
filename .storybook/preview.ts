@@ -1,6 +1,5 @@
 import type { Preview } from "@storybook/sveltekit";
-
-import "../src/lib/styles/theme.css";
+import "../src/themes/theme.css";
 
 const preview: Preview = {
   parameters: {
@@ -19,7 +18,24 @@ const preview: Preview = {
       // "off" | "todo" | "error"
       test: "todo",
     },
+    backgrounds: {
+      options: {
+        light: { name: "Light", value: "#eff0f1" },
+        dark: { name: "Dark", value: "#232629" },
+      },
+    },
+    initialGlobals: {
+      backgrounds: { value: "dark" },
+    },
   },
+  decorators: [
+    (story, context) => {
+      const bg = context.globals.backgrounds?.value;
+      if (bg === "dark") document.documentElement.dataset.theme = "dark";
+      else document.documentElement.dataset.theme = "light";
+      return story();
+    },
+  ],
 };
 
 export default preview;

@@ -18,7 +18,7 @@
 <style>
   .separator {
     flex-shrink: 0;
-    background: var(--color-border);
+    background: var(--color-surface-border);
   }
 
   .separator.horizontal {

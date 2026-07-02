@@ -75,7 +75,7 @@
     min-width: 10rem;
     max-width: 18rem;
     background: var(--color-view);
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-surface-border);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
