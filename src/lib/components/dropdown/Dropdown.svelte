@@ -14,7 +14,7 @@
     autofocus?: boolean;
   };
   let {
-    class: className = "",
+    class: className,
     items,
     open = true,
     onclick,
@@ -67,9 +67,6 @@
         item.onclick?.();
         onclick?.();
       }
-    } else if (e.key === "Escape") {
-      e.preventDefault();
-      onclose?.();
     }
   }
 
@@ -103,6 +100,7 @@
           onpointerenter={() => (openSubmenuIndex = i)}
         >
           <DropdownItem
+            {@attach rovingFocusItem(registerFor(i))}
             label={item.label}
             icon={item.icon}
             shortcut={item.shortcut}
@@ -111,7 +109,6 @@
             hasChildren={true}
             selected={openSubmenuIndex === i}
             onclick={(e) => e.stopPropagation()}
-            {@attach rovingFocusItem(registerFor(i))}
           />
           {#if openSubmenuIndex === i}
             <Popover
@@ -131,6 +128,7 @@
         </li>
       {:else}
         <DropdownItem
+          {@attach rovingFocusItem(registerFor(i))}
           label={item.label}
           icon={item.icon}
           shortcut={item.shortcut}
@@ -140,7 +138,6 @@
             item.onclick?.();
             onclick?.();
           }}
-          {@attach rovingFocusItem(registerFor(i))}
         />
       {/if}
     {/each}

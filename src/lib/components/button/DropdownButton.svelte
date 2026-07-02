@@ -44,6 +44,7 @@
     <Dropdown
       items={menu}
       onclick={onclose}
+      {onclose}
       autofocus
       class="absolute z-50 top-full left-0 mt-0.5 p-1"
     />
