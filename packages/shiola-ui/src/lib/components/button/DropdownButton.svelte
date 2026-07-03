@@ -9,10 +9,8 @@
     children: Snippet;
     class?: ClassValue;
     menu: MenuItemType[];
-    selected: boolean;
-    onopen: () => void;
+    open?: boolean;
     onhover?: () => void;
-    onclose: () => void;
   };
 
   let {
@@ -20,38 +18,32 @@
     children,
     class: className,
     menu,
-    selected,
-    onopen,
+    open = $bindable(false),
     onhover,
-    onclose,
   }: Props = $props();
 </script>
 
 <div class={className}>
-  <Button
-    fullWidth
-    variant="toggle"
-    class={["menu-button", "h-full text-[13px]"]}
-    {selected}
-    onclick={(e) => {
-      e.stopPropagation();
-      onopen();
-    }}
-    onpointerenter={onhover}
+  <Dropdown
+    bind:open
+    {content}
+    items={menu}
+    onclick={() => (open = false)}
+    class="absolute z-50 top-full left-0 mt-0.5 p-1"
   >
-    {@render children?.()}
-  </Button>
-
-  {#if selected}
-    <Dropdown
-      {content}
-      items={menu}
-      onclick={onclose}
-      {onclose}
-      autofocus
-      class="absolute z-50 top-full left-0 mt-0.5 p-1"
-    />
-  {/if}
+    {#snippet trigger({ props })}
+      <Button
+        {...props}
+        fullWidth
+        variant="toggle"
+        class={["menu-button", "h-full text-[13px]"]}
+        selected={open}
+        onpointerenter={onhover}
+      >
+        {@render children?.()}
+      </Button>
+    {/snippet}
+  </Dropdown>
 </div>
 
 <style>

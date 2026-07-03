@@ -6,4 +6,4 @@ catalog:
   "@sveltejs/kit": "^2.68.0"
   "svelte": "^5.56.4"
   "typescript": "~6.0.3"
-  "vite": "^7.3.6"
+  "vite": "^8.1.1"
