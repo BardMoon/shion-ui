@@ -1,3 +1,4 @@
+import { Separator } from "bits-ui";
 import type { ClassValue } from "svelte/elements";
 type Props = {
     orientation?: "horizontal" | "vertical";
