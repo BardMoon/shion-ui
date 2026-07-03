@@ -8,4 +8,7 @@ export { default as Separator } from "./misc/Separator.svelte";
 export { rovingFocusItem } from "./misc/rovingFocus";
 
 export { default as ContextMenu } from "./context-menu/ContextMenu.svelte";
-export { contextMenu } from "./context-menu/context-menu.svelte";
+export {
+  setContextMenu,
+  getContextMenu,
+} from "./context-menu/context-menu.svelte";
