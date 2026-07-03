@@ -1,12 +1,8 @@
 {
   "name": "@shiola/workspace",
   "private": true,
-  "version": "0.1.4",
-  "description": "",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "scripts": {
+    "build": "pnpm --filter @shiola/ui run build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

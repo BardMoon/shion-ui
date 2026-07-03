@@ -93,6 +93,9 @@ importers:
       '@types/node':
         specifier: ^26.0.1
         version: 26.0.1
+      publint:
+        specifier: ^0.3.21
+        version: 0.3.21
       svelte:
         specifier: 'catalog:'
         version: 5.56.4
@@ -586,6 +589,10 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@publint/pack@0.1.5':
+    resolution: {integrity: sha512-edgyN2pP07uXiP4tJs0s8KVmU8M8i60YPbbI0/WDeok1mIJHRXz+CgD8I0nelwDkoCh3EWL/G5kGfbuHjsdbvw==}
+    engines: {node: '>=18'}
 
   '@rolldown/binding-android-arm64@1.1.4':
     resolution: {integrity: sha512-EZLpf/8y7GXkkra90ML47kzik/GMP3EMcE9bPyHmRfxLC6z9+aW5A8poCsoxjrT5GfEcNAAvWwUHjvP1pUQkfw==}
@@ -1443,6 +1450,9 @@ packages:
   oxc-resolver@11.21.3:
     resolution: {integrity: sha512-2Mx3fKQz7+xgrBONjsxOgCGtMHOn38/HxMzW1I5efwXB5a4lRN0Vp40gYUJFBWJslcrvwoofTrqoTnLbwTd3pA==}
 
+  package-manager-detector@1.7.0:
+    resolution: {integrity: sha512-xg1eHpwYL/D/HEdWw2goFZP6vV0FH7W+PZ5rFkGjdIDLtxq7EkzBUeT3m+lndYCt8wKbmofUu1MUdMCXkCk9ZQ==}
+
   pathval@2.0.1:
     resolution: {integrity: sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ==}
     engines: {node: '>= 14.16'}
@@ -1461,6 +1471,11 @@ packages:
   pretty-format@27.5.1:
     resolution: {integrity: sha512-Qb1gy5OrP5+zDf2Bvnzdl3jsTf1qXVMazbvCoKhtKqVs4/YK4ozX4gKQJJVyNe+cajNPn0KoC0MC3FUmaHWEmQ==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
+
+  publint@0.3.21:
+    resolution: {integrity: sha512-OqejcnMV6E9zel2oCrUOJEiiFkGiAAni0A6ibfQNh1k9Gu5z4F+Yso8lllam7AzmV6Do0vp7u3UpZNRBwuXaHQ==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   react-dom@19.2.7:
     resolution: {integrity: sha512-t0BRVXvbiE/o20Hfw669rLbMCDWtYZLvmJigy2f0MxsXF+71pxhR3xOkspmsO8h3ZlNzyibAmtCa3l4lYKk6gQ==}
@@ -1611,6 +1626,10 @@ packages:
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
+
+  tinyexec@1.2.4:
+    resolution: {integrity: sha512-SHf/r48b7vOrjve9PxJo3MN5v5yuyjHvdUcrQffT3WXMUfnGmHDVbC4k3sHJaJTgZCwpUplIaAo5ANtMyp3YHg==}
+    engines: {node: '>=18'}
 
   tinyglobby@0.2.17:
     resolution: {integrity: sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==}
@@ -2114,6 +2133,10 @@ snapshots:
     optional: true
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@publint/pack@0.1.5':
+    dependencies:
+      tinyexec: 1.2.4
 
   '@rolldown/binding-android-arm64@1.1.4':
     optional: true
@@ -2865,6 +2888,8 @@ snapshots:
       '@oxc-resolver/binding-win32-arm64-msvc': 11.21.3
       '@oxc-resolver/binding-win32-x64-msvc': 11.21.3
 
+  package-manager-detector@1.7.0: {}
+
   pathval@2.0.1: {}
 
   picocolors@1.1.1: {}
@@ -2882,6 +2907,13 @@ snapshots:
       ansi-regex: 5.0.1
       ansi-styles: 5.2.0
       react-is: 17.0.2
+
+  publint@0.3.21:
+    dependencies:
+      '@publint/pack': 0.1.5
+      package-manager-detector: 1.7.0
+      picocolors: 1.1.1
+      sade: 1.8.1
 
   react-dom@19.2.7(react@19.2.7):
     dependencies:
@@ -3099,6 +3131,8 @@ snapshots:
   tapable@2.3.3: {}
 
   tiny-invariant@1.3.3: {}
+
+  tinyexec@1.2.4: {}
 
   tinyglobby@0.2.17:
     dependencies:
