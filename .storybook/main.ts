@@ -1,7 +1,10 @@
-import type { StorybookConfig } from "@storybook/sveltekit";
+import type { StorybookConfig } from "@storybook/svelte-vite";
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|ts|svelte)"],
+  stories: [
+    // "../src/**/*.mdx",
+    "../src/**/*.stories.@(js|ts|svelte)",
+  ],
   core: {
     disableTelemetry: true,
   },
@@ -11,7 +14,7 @@ const config: StorybookConfig = {
     "@storybook/addon-docs",
   ],
   framework: {
-    name: "@storybook/sveltekit",
+    name: "@storybook/svelte-vite",
     options: {},
   },
   viteFinal: (config) => {
