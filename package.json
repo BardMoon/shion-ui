@@ -36,7 +36,7 @@
     "./themes/theme.css": "./dist/themes/theme.css"
   },
   "peerDependencies": {
-    "svelte": "catalog:",
+    "svelte": "^5.0.0",
     "tailwindcss": "^4.3.1"
   },
   "dependencies": {
@@ -54,6 +54,7 @@
     "svelte": "catalog:",
     "svelte-check": "^4.7.1",
     "typescript": "catalog:",
+    "tailwindcss": "^4.0.0",
     "vite": "catalog:",
     "storybook": "^10.4.6",
     "@storybook/svelte-vite": "^10.4.6",
