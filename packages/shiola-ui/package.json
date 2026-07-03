@@ -15,10 +15,7 @@
     "build": "pnpm package",
     "build:preview": "vite build",
     "package": "svelte-kit sync && svelte-package && publint",
-    "prepublishOnly": "pnpm package",
-    "prepare": "svelte-kit sync && svelte-package",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "prepublishOnly": "pnpm package"
   },
   "packageManager": "pnpm@11.5.1",
   "exports": {
@@ -31,7 +28,7 @@
     "./themes/theme.css": "./dist/themes/theme.css"
   },
   "peerDependencies": {
-    "svelte": "^5.56.4",
+    "svelte": "catalog:",
     "tailwindcss": "^4.3.1"
   },
   "dependencies": {
@@ -39,20 +36,15 @@
     "bits-ui": "^2.18.1"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^10.4.6",
-    "@storybook/addon-docs": "^10.4.6",
-    "@storybook/addon-svelte-csf": "^5.1.2",
-    "@storybook/sveltekit": "^10.4.6",
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.68.0",
+    "@sveltejs/kit": "catalog:",
     "@sveltejs/package": "^2.5.8",
+    "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tailwindcss/vite": "^4.3.1",
     "@types/node": "^26.0.1",
-    "publint": "^0.2.0",
-    "storybook": "^10.4.6",
     "svelte-check": "^4.7.1",
-    "typescript": "~6.0.3",
+    "publint": "^0.2.0",
+    "typescript": "catalog:",
     "vite": "catalog:"
   }
 }

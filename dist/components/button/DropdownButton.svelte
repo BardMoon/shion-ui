@@ -5,6 +5,7 @@
   import { Dropdown, Button } from "..";
 
   type Props = {
+    content: Snippet<[MenuItemType]>;
     children: Snippet;
     class?: ClassValue;
     menu: MenuItemType[];
@@ -15,6 +16,7 @@
   };
 
   let {
+    content,
     children,
     class: className,
     menu,
@@ -31,7 +33,7 @@
     variant="toggle"
     class={["menu-button", "h-full text-[13px]"]}
     {selected}
-    onpointerdown={(e) => {
+    onclick={(e) => {
       e.stopPropagation();
       onopen();
     }}
@@ -42,8 +44,11 @@
 
   {#if selected}
     <Dropdown
+      {content}
       items={menu}
       onclick={onclose}
+      {onclose}
+      autofocus
       class="absolute z-50 top-full left-0 mt-0.5 p-1"
     />
   {/if}

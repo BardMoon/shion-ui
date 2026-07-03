@@ -16,7 +16,7 @@ class ThemeState {
         }
     }
     toggle() {
-        this.current = this.#resolvedTheme() === "dark" ? "dark" : "light";
+        this.current = this.#resolvedTheme() === "light" ? "dark" : "light";
         this.#apply();
     }
     set(value) {
