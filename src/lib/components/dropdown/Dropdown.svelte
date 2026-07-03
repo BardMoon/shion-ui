@@ -111,7 +111,7 @@
             onclick={(e) => e.stopPropagation()}
             {@attach rovingFocusItem(registerFor(i))}
           >
-            {content?.(item)}
+            {@render content?.(item)}
           </DropdownItem>
 
           {#if openSubmenuIndex === i}
@@ -142,7 +142,7 @@
           }}
           {@attach rovingFocusItem(registerFor(i))}
         >
-          {content?.(item)}
+          {@render content?.(item)}
         </DropdownItem>
       {/if}
     {/each}
