@@ -5,7 +5,7 @@
   import { Dropdown, Button } from "$lib/components";
 
   type Props = {
-    content: Snippet;
+    content: Snippet<[MenuItemType]>;
     children: Snippet;
     class?: ClassValue;
     menu: MenuItemType[];
