@@ -1,7 +1,5 @@
 allowBuilds:
   esbuild: true
-packages:
-  - packages/*
 catalog:
   "@sveltejs/kit": "^2.68.0"
   "svelte": "^5.56.4"

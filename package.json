@@ -1,18 +1,57 @@
 {
-  "name": "@shiola/workspace",
+  "name": "@shiola/ui",
   "private": true,
+  "version": "0.1.5",
+  "description": "Reusable Svelte 5 UI component library.",
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "ui",
+    "components",
+    "bits-ui"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "pnpm --filter @shiola/ui run build",
+    "dev": "vite",
+    "build": "svelte-package && publint",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "prepublishOnly": "pnpm build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "packageManager": "pnpm@11.5.1",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./themes/theme.css": "./dist/themes/theme.css"
+  },
+  "peerDependencies": {
+    "svelte": "catalog:",
+    "tailwindcss": "^4.3.1"
+  },
+  "dependencies": {
+    "@lucide/svelte": "^1.22.0",
+    "bits-ui": "^2.18.1"
+  },
   "devDependencies": {
+    "@sveltejs/kit": "catalog:",
+    "@sveltejs/package": "^2.5.8",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tailwindcss/vite": "^4.3.1",
     "@tsconfig/svelte": "^5.0.8",
-    "@types/node": "^24.13.2",
-    "svelte": "^5.56.4",
+    "@types/node": "^26.0.1",
+    "publint": "^0.3.21",
+    "svelte": "catalog:",
     "svelte-check": "^4.7.1",
     "typescript": "catalog:",
     "vite": "catalog:",

@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/svelte-vite";
-import "../packages/shiola-ui/src/lib/themes/theme.css";
+import "../src/lib/themes/theme.css";
 
 const preview: Preview = {
   parameters: {
