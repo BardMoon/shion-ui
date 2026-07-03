@@ -14,7 +14,7 @@
     "dev": "vite dev",
     "build": "pnpm package",
     "build:preview": "vite build",
-    "package": "svelte-kit sync && svelte-package && publint",
+    "package": "svelte-package",
     "prepublishOnly": "pnpm package"
   },
   "packageManager": "pnpm@11.5.1",
@@ -38,12 +38,12 @@
   "devDependencies": {
     "@sveltejs/kit": "catalog:",
     "@sveltejs/package": "^2.5.8",
-    "@sveltejs/adapter-static": "^3.0.10",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@tailwindcss/vite": "^4.3.1",
+    "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^26.0.1",
+    "svelte": "catalog:",
     "svelte-check": "^4.7.1",
-    "publint": "^0.2.0",
     "typescript": "catalog:",
     "vite": "catalog:"
   }
