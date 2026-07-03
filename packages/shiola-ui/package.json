@@ -11,11 +11,11 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite dev",
-    "build": "pnpm package",
-    "build:preview": "vite build",
-    "package": "svelte-package",
-    "prepublishOnly": "pnpm package"
+    "dev": "vite",
+    "build": "svelte-package && publint",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "prepublishOnly": "pnpm build"
   },
   "packageManager": "pnpm@11.5.1",
   "exports": {
@@ -42,6 +42,7 @@
     "@tailwindcss/vite": "^4.3.1",
     "@tsconfig/svelte": "^5.0.8",
     "@types/node": "^26.0.1",
+    "publint": "^0.3.21",
     "svelte": "catalog:",
     "svelte-check": "^4.7.1",
     "typescript": "catalog:",
