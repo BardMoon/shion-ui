@@ -5,6 +5,7 @@
   import { Dropdown, Button } from "$lib/components";
 
   type Props = {
+    content: Snippet;
     children: Snippet;
     class?: ClassValue;
     menu: MenuItemType[];
@@ -15,6 +16,7 @@
   };
 
   let {
+    content,
     children,
     class: className,
     menu,
@@ -42,6 +44,7 @@
 
   {#if selected}
     <Dropdown
+      {content}
       items={menu}
       onclick={onclose}
       {onclose}

@@ -1,13 +1,12 @@
 <script lang="ts">
-  import type { Component } from "svelte";
+  import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { ChevronRight } from "@lucide/svelte";
   import { Button } from "@shiola/ui";
   import type { ButtonToneType } from "$lib/types";
 
   type Props = HTMLButtonAttributes & {
-    label: string;
-    icon?: Component;
+    children: Snippet;
     tone?: ButtonToneType;
     shortcut?: string;
     selected?: boolean;
@@ -15,13 +14,13 @@
     onclick?: (e: MouseEvent) => void;
   };
   let {
-    label,
-    icon: Icon,
+    children,
     tone,
     shortcut,
     selected = false,
     hasChildren = false,
     onclick,
+
     class: _class,
     ...rest
   }: Props = $props();
@@ -37,14 +36,11 @@
   onpointerdown={(e) => e.stopPropagation()}
   {...rest}
 >
-  {#if Icon}
-    <Icon size={13} />
-  {/if}
-  <span class="label">{label}</span>
+  {@render children?.()}
   {#if hasChildren}
-    <span class="chevron"><ChevronRight size={16} /></span>
-  {:else if shortcut}
-    <span class="shortcut">{shortcut}</span>
+    <span class={["chevron", "absolute right-1"]}>
+      <ChevronRight size={16} />
+    </span>
   {/if}
 </Button>
 
@@ -52,22 +48,7 @@
   :global(.menu-item) {
     font-size: 0.8125rem;
   }
-  .label {
-    flex: 1;
-    min-width: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
   .chevron {
-    position: absolute;
-    right: 4px;
     color: var(--color-text-sub);
-  }
-  .shortcut {
-    flex-shrink: 0;
-    margin-right: 0.1rem;
-    color: var(--color-text-muted);
-    font-size: 0.75rem;
   }
 </style>

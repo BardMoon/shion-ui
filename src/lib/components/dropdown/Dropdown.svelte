@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Snippet } from "svelte";
   import type { ClassValue, HTMLAttributes } from "svelte/elements";
   import type { MenuItemType } from "$lib/types";
   import { Popover, Separator, rovingFocusItem } from "$lib/components";
@@ -6,16 +7,18 @@
   import DropdownItem from "./DropdownItem.svelte";
 
   type Props = HTMLAttributes<HTMLUListElement> & {
-    class?: ClassValue;
+    content?: Snippet<[MenuItemType]>;
     items: MenuItemType[];
+    class?: ClassValue;
     open?: boolean;
     onclick?: () => void;
     onclose?: () => void;
     autofocus?: boolean;
   };
   let {
-    class: className,
+    content,
     items,
+    class: className,
     open = true,
     onclick,
     onclose,
@@ -100,16 +103,17 @@
           onpointerenter={() => (openSubmenuIndex = i)}
         >
           <DropdownItem
-            {@attach rovingFocusItem(registerFor(i))}
-            label={item.label}
-            icon={item.icon}
             shortcut={item.shortcut}
             disabled={item.disabled}
             tone={item.tone}
             hasChildren={true}
             selected={openSubmenuIndex === i}
             onclick={(e) => e.stopPropagation()}
-          />
+            {@attach rovingFocusItem(registerFor(i))}
+          >
+            {content?.(item)}
+          </DropdownItem>
+
           {#if openSubmenuIndex === i}
             <Popover
               open={openSubmenuIndex === i}
@@ -117,6 +121,7 @@
               onclose={onSubmenuClose}
             >
               <Dropdown
+                {content}
                 items={item.children}
                 class="p-1"
                 autofocus
@@ -128,9 +133,6 @@
         </li>
       {:else}
         <DropdownItem
-          {@attach rovingFocusItem(registerFor(i))}
-          label={item.label}
-          icon={item.icon}
           shortcut={item.shortcut}
           disabled={item.disabled}
           tone={item.tone}
@@ -138,7 +140,10 @@
             item.onclick?.();
             onclick?.();
           }}
-        />
+          {@attach rovingFocusItem(registerFor(i))}
+        >
+          {content?.(item)}
+        </DropdownItem>
       {/if}
     {/each}
   </ul>

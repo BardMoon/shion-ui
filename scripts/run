@@ -121,8 +121,8 @@ do_build() {
 
 do_develop() {
     local options=(
-        "pp| ${SELECT}p${NC}npm:${SELECT}p${NC}ackage"
-        "ps| ${SELECT}p${NC}npm:${SELECT}s${NC}torybook"
+        "pp| ${SELECT}p${NC}npm: ${SELECT}p${NC}ackage"
+        "ps| ${SELECT}p${NC}npm: ${SELECT}s${NC}torybook"
         "$CANCEL_OPTION"
     )
     local env
