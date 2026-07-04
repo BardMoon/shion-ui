@@ -23,7 +23,6 @@
     {#snippet child({ props })}
       <DropdownItem
         {...props}
-        selected={true}
         shortcut={item.shortcut}
         disabled={item.disabled}
         tone={item.tone}
@@ -39,8 +38,8 @@
       class={["submenu", "p-1 z-50"]}
       side="right"
       align="start"
-      sideOffset={-4}
-      alignOffset={-4}
+      sideOffset={-2}
+      alignOffset={-2}
     >
       {#each item.children ?? [] as child}
         {#if child.type === "separator"}

@@ -33,6 +33,7 @@
   {selected}
   {tone}
   {onclick}
+  variant={hasChildren ? "toggle" : "default"}
   onpointerdown={(e) => e.stopPropagation()}
   {...rest}
 >
