@@ -38,8 +38,8 @@
       class={["submenu", "p-1 z-50"]}
       side="right"
       align="start"
-      sideOffset={-2}
-      alignOffset={-2}
+      sideOffset={0}
+      alignOffset={0}
     >
       {#each item.children ?? [] as child}
         {#if child.type === "separator"}
