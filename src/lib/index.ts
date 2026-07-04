@@ -1,5 +1,4 @@
 export * from "./components";
 export * from "./layouts";
-export * from "./types";
-
 export { themeState } from "./themes/theme.svelte";
+export * from "./types";

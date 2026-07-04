@@ -30,9 +30,13 @@
 
 <div
   bind:this={container}
-  class="flex h-full w-full"
-  class:flex-col={orientation === "vertical"}
-  class:flex-row={orientation === "horizontal"}
+  class={[
+    "flex h-full w-full",
+    {
+      "flex-col": orientation === "vertical",
+      "flex-row": orientation === "horizontal",
+    },
+  ]}
 >
   <div
     class="shrink-0"
