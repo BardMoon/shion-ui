@@ -1,26 +1,10 @@
-export default Toolbar;
-type Toolbar = SvelteComponent<{
-    [x: string]: never;
-}, {
-    [evt: string]: CustomEvent<any>;
-}, {}> & {
-    $$bindings?: string | undefined;
+import type { Orientation, ToolbarItem, ToolbarGroups } from "./type";
+type Props = ToolbarGroups & {
+    orientation?: Orientation;
+    activeId?: string | null;
+    onselect?: (item: ToolbarItem) => void;
+    ariaLabel?: string;
 };
-declare const Toolbar: $$__sveltets_2_IsomorphicComponent<{
-    [x: string]: never;
-}, {
-    [evt: string]: CustomEvent<any>;
-}, {}, {}, string>;
-interface $$__sveltets_2_IsomorphicComponent<Props extends Record<string, any> = any, Events extends Record<string, any> = any, Slots extends Record<string, any> = any, Exports = {}, Bindings = string> {
-    new (options: import("svelte").ComponentConstructorOptions<Props>): import("svelte").SvelteComponent<Props, Events, Slots> & {
-        $$bindings?: Bindings;
-    } & Exports;
-    (internal: unknown, props: {
-        $$events?: Events;
-        $$slots?: Slots;
-    }): Exports & {
-        $set?: any;
-        $on?: any;
-    };
-    z_$$bindings?: Bindings;
-}
+declare const Toolbar: import("svelte").Component<Props, {}, "">;
+type Toolbar = ReturnType<typeof Toolbar>;
+export default Toolbar;
