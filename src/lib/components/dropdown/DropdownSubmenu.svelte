@@ -65,6 +65,3 @@
     </DropdownMenu.SubContent>
   </DropdownMenu.Portal>
 </DropdownMenu.Sub>
-
-<style>
-</style>
