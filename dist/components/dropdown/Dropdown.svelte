@@ -43,6 +43,7 @@
 
   <DropdownMenu.Portal>
     <DropdownMenu.Content
+      interactOutsideBehavior="ignore"
       class={["menu", className]}
       {side}
       {align}
