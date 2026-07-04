@@ -9,11 +9,12 @@ type Props = {
     items: MenuItemType[];
     class?: ClassValue;
     open?: boolean;
+    onOpenChange?: (open: boolean) => void;
     onclick?: () => void;
     side?: "top" | "right" | "bottom" | "left";
     align?: "start" | "center" | "end";
     sideOffset?: number;
 };
-declare const Dropdown: import("svelte").Component<Props, {}, "open">;
+declare const Dropdown: import("svelte").Component<Props, {}, "">;
 type Dropdown = ReturnType<typeof Dropdown>;
 export default Dropdown;

@@ -12,6 +12,7 @@
   let { content }: Props = $props();
 </script>
 
+<!--
 <Dropdown
   {content}
   class="fixed z-50 p-1"
@@ -20,4 +21,4 @@
   open={contextMenu.open}
   onclose={contextMenu.hide}
   onclick={contextMenu.hide}
-/>
+/> -->

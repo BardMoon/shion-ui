@@ -7,8 +7,9 @@ type Props = {
     class?: ClassValue;
     menu: MenuItemType[];
     open?: boolean;
+    onOpenChange?: (open: boolean) => void;
     onhover?: () => void;
 };
-declare const DropdownButton: import("svelte").Component<Props, {}, "open">;
+declare const DropdownButton: import("svelte").Component<Props, {}, "">;
 type DropdownButton = ReturnType<typeof DropdownButton>;
 export default DropdownButton;

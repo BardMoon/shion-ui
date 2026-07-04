@@ -10,6 +10,7 @@
     class?: ClassValue;
     menu: MenuItemType[];
     open?: boolean;
+    onOpenChange?: (open: boolean) => void;
     onhover?: () => void;
   };
 
@@ -18,17 +19,19 @@
     children,
     class: className,
     menu,
-    open = $bindable(false),
+    open = false,
+    onOpenChange,
     onhover,
   }: Props = $props();
 </script>
 
 <div class={className}>
   <Dropdown
-    bind:open
+    {open}
+    {onOpenChange}
     {content}
     items={menu}
-    onclick={() => (open = false)}
+    onclick={() => onOpenChange?.(false)}
     class="absolute z-50 top-full left-0 mt-0.5 p-1"
   >
     {#snippet trigger({ props })}

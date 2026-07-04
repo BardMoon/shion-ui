@@ -13,6 +13,7 @@
     items: MenuItemType[];
     class?: ClassValue;
     open?: boolean;
+    onOpenChange?: (open: boolean) => void;
     onclick?: () => void;
     side?: "top" | "right" | "bottom" | "left";
     align?: "start" | "center" | "end";
@@ -24,7 +25,8 @@
     content,
     items,
     class: className,
-    open = $bindable(false),
+    open = false,
+    onOpenChange,
     onclick,
     side = "bottom",
     align = "start",
@@ -32,7 +34,7 @@
   }: Props = $props();
 </script>
 
-<DropdownMenu.Root bind:open>
+<DropdownMenu.Root {open} onOpenChange={(v) => onOpenChange?.(v)}>
   <DropdownMenu.Trigger>
     {#snippet child({ props })}
       {@render trigger({ props })}
