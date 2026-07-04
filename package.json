@@ -1,7 +1,7 @@
 {
   "name": "@shiola/ui",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Reusable Svelte 5 UI component library.",
   "keywords": [
     "svelte",
