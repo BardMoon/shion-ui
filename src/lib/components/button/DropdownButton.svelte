@@ -32,7 +32,7 @@
     {content}
     items={menu}
     onclick={() => (open = false)}
-    class="z-50"
+    class="z-40"
   >
     {#snippet trigger({ props })}
       <Button
