@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import type { ClassValue } from "svelte/elements";
   import { DropdownMenu } from "bits-ui";
   import type { MenuItemType } from "../../types/menu";
   import DropdownItem from "./DropdownItem.svelte";
@@ -34,7 +35,7 @@
 
   <DropdownMenu.Portal>
     <DropdownMenu.SubContent
-      class="menu p-1"
+      class={["submenu", "p-1"]}
       side="right"
       align="start"
       sideOffset={-4}
@@ -71,3 +72,9 @@
     </DropdownMenu.SubContent>
   </DropdownMenu.Portal>
 </DropdownMenu.Sub>
+
+<style>
+  :global(.submenu) {
+    z-index: 60;
+  }
+</style>

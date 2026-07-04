@@ -43,8 +43,8 @@
       class="menu p-1"
       side="right"
       align="start"
-      sideOffset={-4}
-      alignOffset={-4}
+      sideOffset={-2}
+      alignOffset={-2}
     >
       {#each item.children ?? [] as menuChild}
         {#if isSeparator(menuChild)}

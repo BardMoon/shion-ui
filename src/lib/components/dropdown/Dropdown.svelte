@@ -55,12 +55,7 @@
         {:else}
           {@const menuItem = item}
           {#if menuItem.children?.length}
-            <DropdownSubmenu
-              {content}
-              item={menuItem}
-              {onclick}
-              class={className}
-            />
+            <DropdownSubmenu {content} item={menuItem} {onclick} />
           {:else}
             <DropdownMenu.Item
               disabled={menuItem.disabled}

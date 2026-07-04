@@ -44,7 +44,7 @@
   <DropdownMenu.Portal>
     <DropdownMenu.Content
       preventScroll={false}
-      class={["menu", className]}
+      class={["menu", "p-1", className]}
       {side}
       {align}
       {sideOffset}

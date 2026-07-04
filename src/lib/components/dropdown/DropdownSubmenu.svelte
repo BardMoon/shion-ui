@@ -12,11 +12,10 @@
   type Props = {
     content?: Snippet<[MenuItemType]>;
     item: MenuLeafType;
-    class?: ClassValue;
     onclick?: () => void;
   };
 
-  let { content, item, class: className, onclick }: Props = $props();
+  let { content, item, onclick }: Props = $props();
 </script>
 
 <DropdownMenu.Sub>
@@ -36,7 +35,7 @@
 
   <DropdownMenu.Portal>
     <DropdownMenu.SubContent
-      class={["menu", "p-1", className]}
+      class={["submenu", "p-1"]}
       side="right"
       align="start"
       sideOffset={-4}
@@ -73,3 +72,9 @@
     </DropdownMenu.SubContent>
   </DropdownMenu.Portal>
 </DropdownMenu.Sub>
+
+<style>
+  :global(.submenu) {
+    z-index: 60;
+  }
+</style>
