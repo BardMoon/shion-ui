@@ -33,7 +33,13 @@
   </DropdownMenu.SubTrigger>
 
   <DropdownMenu.Portal>
-    <DropdownMenu.SubContent class="menu p-1" sideOffset={4}>
+    <DropdownMenu.SubContent
+      class="menu p-1"
+      side="right"
+      align="start"
+      sideOffset={-4}
+      alignOffset={-4}
+    >
       {#each item.children ?? [] as child}
         {#if child.type === "separator"}
           <Separator />
