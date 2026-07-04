@@ -23,6 +23,7 @@
     {#snippet child({ props })}
       <DropdownItem
         {...props}
+        selected={true}
         shortcut={item.shortcut}
         disabled={item.disabled}
         tone={item.tone}
@@ -35,7 +36,7 @@
 
   <DropdownMenu.Portal>
     <DropdownMenu.SubContent
-      class={["submenu", "p-1"]}
+      class={["submenu", "p-1 z-50"]}
       side="right"
       align="start"
       sideOffset={-4}
@@ -75,6 +76,11 @@
 
 <style>
   :global(.submenu) {
-    z-index: 60;
+    min-width: 10rem;
+    max-width: 18rem;
+    background: var(--color-view);
+    border: 1px solid var(--color-surface-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 </style>

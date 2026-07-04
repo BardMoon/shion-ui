@@ -40,7 +40,7 @@
 
   <ContextMenu.Portal>
     <ContextMenu.SubContent
-      class="menu p-1"
+      class={["submenu", "p-1 z-50"]}
       side="right"
       align="start"
       sideOffset={-2}
@@ -74,3 +74,14 @@
     </ContextMenu.SubContent>
   </ContextMenu.Portal>
 </ContextMenu.Sub>
+
+<style>
+  :global(.submenu) {
+    min-width: 10rem;
+    max-width: 18rem;
+    background: var(--color-view);
+    border: 1px solid var(--color-surface-border);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+</style>
