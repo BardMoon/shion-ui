@@ -1,7 +1,6 @@
 <script lang="ts">
   import type { MenuItemType } from "../../types";
-  import MenuBar from "../menubar/MenuBar.svelte";
-  import WindowControls from "../window/WindowControls.svelte";
+  import { MenuBar, WindowControls } from "../";
 
   type Props = {
     menus?: MenuItemType[];

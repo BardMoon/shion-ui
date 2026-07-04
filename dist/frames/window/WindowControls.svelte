@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Minus, Square, X } from "@lucide/svelte";
-  import { Button } from "@shiola/ui";
+  import { Button } from "../../components";
 
   type Props = {
     onminimize?: () => void;
