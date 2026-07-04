@@ -15,6 +15,6 @@ type Props = {
     align?: "start" | "center" | "end";
     sideOffset?: number;
 };
-declare const Dropdown: import("svelte").Component<Props, {}, "">;
+declare const Dropdown: import("svelte").Component<Props, {}, "open">;
 type Dropdown = ReturnType<typeof Dropdown>;
 export default Dropdown;

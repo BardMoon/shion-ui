@@ -25,7 +25,7 @@
     content,
     items,
     class: className,
-    open = false,
+    open = $bindable(false),
     onOpenChange,
     onclick,
     side = "bottom",
@@ -34,7 +34,13 @@
   }: Props = $props();
 </script>
 
-<DropdownMenu.Root {open} onOpenChange={(v) => onOpenChange?.(v)}>
+<DropdownMenu.Root
+  bind:open
+  onOpenChange={(v) => {
+    open = v;
+    onOpenChange?.(v);
+  }}
+>
   <DropdownMenu.Trigger>
     {#snippet child({ props })}
       {@render trigger({ props })}
