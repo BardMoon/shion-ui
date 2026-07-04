@@ -19,7 +19,7 @@
     children,
     class: className,
     menu,
-    open = false,
+    open = $bindable(false),
     onOpenChange,
     onhover,
   }: Props = $props();
@@ -27,7 +27,7 @@
 
 <div class={className}>
   <Dropdown
-    {open}
+    bind:open
     {onOpenChange}
     {content}
     items={menu}
