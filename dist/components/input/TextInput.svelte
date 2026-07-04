@@ -27,7 +27,7 @@
       {@render start()}
     </div>
   {:else if Icon}
-    <div class={["start", "absolute flex items-center"]}>
+    <div class={["start", "absolute flex items-center left-2"]}>
       <Icon size={14} class="text-(--color-text-muted)" />
     </div>
   {/if}
@@ -46,7 +46,7 @@
   />
 
   {#if end}
-    <div class={["end", "right-1.5"]}>
+    <div class={["end", "absolute flex items-center right-1.5"]}>
       {@render end()}
     </div>
   {/if}

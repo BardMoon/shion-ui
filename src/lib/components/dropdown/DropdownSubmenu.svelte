@@ -23,10 +23,11 @@
     {#snippet child({ props })}
       <DropdownItem
         {...props}
+        hasChildren
         shortcut={item.shortcut}
         disabled={item.disabled}
+        selected={props["data-state"] === "open"}
         tone={item.tone}
-        hasChildren
       >
         {@render content?.(item)}
       </DropdownItem>
