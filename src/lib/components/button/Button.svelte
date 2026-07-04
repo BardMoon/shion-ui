@@ -4,9 +4,9 @@
   import type { ButtonVariantType, ButtonToneType } from "../../types";
 
   type Props = HTMLButtonAttributes & {
+    ref?: HTMLButtonElement | null;
     class?: ClassValue;
     children?: Snippet;
-
     variant?: ButtonVariantType;
     tone?: ButtonToneType;
     selected?: boolean;
@@ -14,9 +14,9 @@
   };
 
   let {
+    ref = $bindable(null),
     class: className,
     children,
-
     variant = "default",
     tone = "default",
     selected = false,
@@ -26,15 +26,19 @@
 </script>
 
 <button
+  bind:this={ref}
   {...props}
   type={props.type ?? "button"}
+  data-variant={variant}
+  data-tone={tone}
+  data-selected={selected ? "" : undefined}
+  aria-pressed={variant === "toggle" ? selected : undefined}
   class={[
     "flex items-center gap-1.5 px-2.5 py-0.75",
     `variant-${variant}`,
     `tone-${tone}`,
     {
       "w-full": fullWidth,
-      "is-selected": selected,
     },
     className,
   ]}
@@ -64,10 +68,8 @@
   button.variant-default {
     border: 1px solid transparent;
     border-radius: var(--border-radius);
-
     color: var(--color-text);
     background: transparent;
-
     text-align: left;
   }
 
@@ -81,12 +83,12 @@
     border-color: var(--color-primary);
   }
 
-  button.variant-default.is-selected {
+  button.variant-default[data-selected]:not(:disabled) {
     background: var(--color-primary-level2);
     border-color: transparent;
   }
 
-  button.variant-default.is-selected:hover:not(:disabled) {
+  button.variant-default[data-selected]:hover:not(:disabled) {
     background: var(--color-primary-level3);
     border-color: transparent;
   }
@@ -96,7 +98,6 @@
   button.variant-toggle {
     border: none;
     border-radius: var(--border-radius);
-
     color: var(--color-text);
     background: transparent;
   }
@@ -107,8 +108,8 @@
   }
 
   button.variant-toggle:active:not(:disabled),
-  button.variant-toggle.is-selected,
-  button.variant-toggle.is-selected:hover:not(:disabled) {
+  button.variant-toggle[data-selected],
+  button.variant-toggle[data-selected]:hover:not(:disabled) {
     background: var(--color-primary-level3);
     border-color: transparent;
   }
