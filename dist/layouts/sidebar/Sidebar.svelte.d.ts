@@ -1,5 +1,5 @@
 import type { ClassValue } from "svelte/elements";
-import type { SidebarItem } from "./types.js";
+import type { SidebarItem } from "./type";
 type Props = {
     class?: ClassValue;
     items: SidebarItem[];

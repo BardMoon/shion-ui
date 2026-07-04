@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { ClassValue } from "svelte/elements";
   import { Toolbar, Splitter } from "$lib/layouts";
-  import type { SidebarItem } from "./types.js";
+  import type { SidebarItem } from "./type";
 
   type Props = {
     class?: ClassValue;
