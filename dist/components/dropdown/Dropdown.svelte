@@ -34,13 +34,7 @@
   }: Props = $props();
 </script>
 
-<DropdownMenu.Root
-  bind:open
-  onOpenChange={(v) => {
-    open = v;
-    onOpenChange?.(v);
-  }}
->
+<DropdownMenu.Root bind:open {onOpenChange}>
   <DropdownMenu.Trigger>
     {#snippet child({ props })}
       {@render trigger({ props })}
