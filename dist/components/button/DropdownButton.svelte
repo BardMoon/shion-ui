@@ -34,8 +34,9 @@
     onclick={() => (open = false)}
     class="absolute z-50 top-full left-0 mt-0.5 p-1"
   >
-    {#snippet trigger()}
+    {#snippet trigger({ props })}
       <Button
+        {...props}
         fullWidth
         variant="toggle"
         class={["menu-button", "h-full text-[13px]"]}
