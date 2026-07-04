@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
+  import type { ClassValue } from "svelte/elements";
   import { DropdownMenu } from "bits-ui";
   import type { MenuItemType } from "../../types/menu";
   import DropdownItem from "./DropdownItem.svelte";
@@ -11,10 +12,11 @@
   type Props = {
     content?: Snippet<[MenuItemType]>;
     item: MenuLeafType;
+    class?: ClassValue;
     onclick?: () => void;
   };
 
-  let { content, item, onclick }: Props = $props();
+  let { content, item, class: className, onclick }: Props = $props();
 </script>
 
 <DropdownMenu.Sub>
@@ -34,7 +36,7 @@
 
   <DropdownMenu.Portal>
     <DropdownMenu.SubContent
-      class="menu p-1"
+      class={["menu", "p-1", className]}
       side="right"
       align="start"
       sideOffset={-4}

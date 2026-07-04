@@ -44,7 +44,7 @@
   <DropdownMenu.Portal>
     <DropdownMenu.Content
       preventScroll={false}
-      class={["menu", className]}
+      class={["menu", "p-1", className]}
       {side}
       {align}
       {sideOffset}
@@ -55,7 +55,12 @@
         {:else}
           {@const menuItem = item}
           {#if menuItem.children?.length}
-            <DropdownSubmenu {content} item={menuItem} {onclick} />
+            <DropdownSubmenu
+              {content}
+              item={menuItem}
+              {onclick}
+              class={className}
+            />
           {:else}
             <DropdownMenu.Item
               disabled={menuItem.disabled}
