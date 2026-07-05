@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import type { ClassValue } from "svelte/elements";
-  import { Button } from "@shiola/ui";
+  import { Button } from "$lib/components";
   import type { TreeNodeData, TreeViewController } from "./types.js";
   import { treeStore } from "./treeStore.svelte.js";
 

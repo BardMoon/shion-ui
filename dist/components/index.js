@@ -11,10 +11,7 @@ export { treeStore } from "./dataview/tree/treeStore.svelte";
 // === Display ===
 export { default as Separator } from "./display/Separator.svelte";
 export { default as ContextMenu } from "./navigation/context-menu/ContextMenu.svelte";
-export {
-  getContextMenu,
-  setContextMenu,
-} from "./navigation/context-menu/context-menu.svelte";
+export { getContextMenu, setContextMenu, } from "./navigation/context-menu/context-menu.svelte";
 // === Navigation ===
 export { default as Dropdown } from "./navigation/dropdown/Dropdown.svelte";
 export { default as Tooltip } from "./overlays/tooltip/Tooltip.svelte";

@@ -18,7 +18,7 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: (config) => {
-    config.base = "/shiola-ui/";
+    config.base = "/shion-ui/";
     return config;
   },
 };

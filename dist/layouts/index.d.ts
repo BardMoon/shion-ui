@@ -1,6 +1,6 @@
 export { default as MenuBar } from "./menubar/MenuBar.svelte";
 export { paneStore } from "./pane/paneStore.svelte";
-export { type Pane } from "./pane/type";
+export type { Pane } from "./pane/type";
 export { default as Sidebar } from "./sidebar/Sidebar.svelte";
 export type { SidebarItem } from "./sidebar/type";
 export { default as Splitter } from "./split-view/Splitter.svelte";

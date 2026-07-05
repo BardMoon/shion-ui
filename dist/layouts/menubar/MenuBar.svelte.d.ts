@@ -1,7 +1,6 @@
 import type { MenuItemType } from "../../types";
-
 type Props = {
-  menus?: MenuItemType[];
+    menus?: MenuItemType[];
 };
 declare const MenuBar: import("svelte").Component<Props, {}, "">;
 type MenuBar = ReturnType<typeof MenuBar>;
