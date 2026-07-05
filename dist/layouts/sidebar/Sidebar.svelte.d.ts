@@ -1,9 +1,8 @@
 import type { ClassValue } from "svelte/elements";
-import type { SidebarItem } from "./type";
 type Props = {
     class?: ClassValue;
-    items: SidebarItem[];
-    bottomItems?: SidebarItem[];
+    items: string[];
+    bottomItems?: string[];
     size?: number;
     defaultSize?: number;
     minSize?: number;

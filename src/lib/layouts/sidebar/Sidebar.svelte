@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { ClassValue } from "svelte/elements";
-  import { Toolbar, Splitter } from "$lib/layouts";
-  import type { SidebarItem } from "./type";
+  import { Toolbar, Splitter, type Pane, paneStore } from "$lib/layouts";
 
   type Props = {
     class?: ClassValue;
-    items: SidebarItem[];
-    bottomItems?: SidebarItem[];
+    items: string[];
+    bottomItems?: string[];
     size?: number;
     defaultSize?: number;
     minSize?: number;
@@ -22,37 +21,38 @@
     maxSize = 480,
   }: Props = $props();
 
-  let activeId = $state<string | null>(items[0]?.id ?? null);
+  const topPanes = $derived(paneStore.list(items));
+  const bottomPanes = $derived(paneStore.list(bottomItems));
 
-  const activeItem = $derived(
-    [...items, ...bottomItems].find((i) => i.id === activeId) ?? null,
+  let activeId = $state<string | null>(items[0] ?? null);
+  const activePane = $derived(
+    [...topPanes, ...bottomPanes].find((p) => p.id === activeId) ?? null,
   );
 
-  let container: HTMLElement | undefined = $state();
   let panelEl: HTMLElement | undefined = $state();
 
-  function handleSelect(item: SidebarItem) {
-    activeId = activeId === item.id ? null : item.id;
+  function handleSelect(pane: Pane) {
+    activeId = activeId === pane.id ? null : pane.id;
   }
 </script>
 
-<div bind:this={container} class={["flex h-full", className]}>
+<div class={["flex h-full", className]}>
   <Toolbar
     orientation="vertical"
-    start={items}
-    end={bottomItems}
+    start={topPanes}
+    end={bottomPanes}
     {activeId}
     onselect={handleSelect}
     ariaLabel="Sidebar"
   />
 
-  {#if activeItem?.panel}
+  {#if activePane?.content}
     <div
       bind:this={panelEl}
       class={["panel", "shrink-0 overflow-y-auto"]}
       style={`width: ${size}px;`}
     >
-      <activeItem.panel />
+      <activePane.content {...activePane.props} />
     </div>
     <Splitter
       container={panelEl}
