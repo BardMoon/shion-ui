@@ -4,7 +4,7 @@
   import { DropdownMenu } from "bits-ui";
   import { Separator } from "../..";
   import type { MenuItemType } from "../../../types";
-  import SubMenu from "./SubMenu.svelte";
+  import SubMenu from "../SubMenu.svelte";
   import MenuItem from "../MenuItem.svelte";
 
   type Props = {
