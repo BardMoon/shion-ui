@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { untrack } from "svelte";
   import type { ClassValue } from "svelte/elements";
   import { Toolbar, Splitter, paneStore, type Pane } from "$lib/layouts";
 
@@ -27,7 +26,9 @@
   const topPanes = $derived(paneStore.list(items));
   const bottomPanes = $derived(paneStore.list(bottomItems));
 
-  let activeId = $state<string | null>(untrack(() => items[0] ?? null));
+  let activeId = $state<string | null>(items[0] ?? null);
+  let collapsed = $state(false);
+
   const activePane = $derived(
     [...topPanes, ...bottomPanes].find((p) => p.id === activeId) ?? null,
   );
@@ -36,15 +37,26 @@
 
   function handleSelect(pane: Pane) {
     if (activeId === pane.id) {
-      activeId = null;
+      // 同じアイコンをもう一度押したらトグルで畳む/開く
+      collapsed = !collapsed;
       return;
     }
     activeId = pane.id;
+    collapsed = false;
     if (size < minSize) size = defaultSize;
   }
 
   function handleCollapse() {
-    activeId = null;
+    collapsed = true;
+  }
+
+  function handleResize() {
+    // ドラッグでしきい値を超えて押し戻されたら自動的に展開扱いにする
+    if (collapsed) collapsed = false;
+  }
+
+  function handleDoubleClick() {
+    collapsed = false;
   }
 </script>
 
@@ -62,9 +74,11 @@
     <div
       bind:this={panelEl}
       class={["panel", "shrink-0 overflow-y-auto"]}
-      style={`width: ${size}px;`}
+      style={`width: ${collapsed ? 0 : size}px;`}
     >
-      <activePane.content {...activePane.props} />
+      {#if !collapsed}
+        <activePane.content {...activePane.props} />
+      {/if}
     </div>
     <Splitter
       container={panelEl}
@@ -75,6 +89,8 @@
       {maxSize}
       {collapseThreshold}
       oncollapse={handleCollapse}
+      onresize={handleResize}
+      ondoubleclick={handleDoubleClick}
     />
   {/if}
 </div>

@@ -89,6 +89,7 @@
     size = defaultSize;
     onresize?.(size);
     onresizeend?.(size);
+    ondoubleclick?.();
   }
 
   function handleKeyDown(event: KeyboardEvent) {
