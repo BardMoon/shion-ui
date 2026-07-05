@@ -14,7 +14,10 @@
   "license": "ISC",
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "!dist/**/*.stories.svelte",
+    "!dist/**/*.test.*",
+    "!dist/**/*.spec.*"
   ],
   "scripts": {
     "dev": "vite",

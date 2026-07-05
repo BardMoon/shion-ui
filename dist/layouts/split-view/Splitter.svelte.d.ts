@@ -7,9 +7,11 @@ type Props = {
     maxSize?: number;
     defaultSize?: number;
     overlay?: boolean;
+    collapseThreshold?: number;
     onresize?: (size: number) => void;
     onresizeend?: (size: number) => void;
     ondoubleclick?: () => void;
+    oncollapse?: () => void;
 };
 declare const Splitter: import("svelte").Component<Props, {}, "size">;
 type Splitter = ReturnType<typeof Splitter>;

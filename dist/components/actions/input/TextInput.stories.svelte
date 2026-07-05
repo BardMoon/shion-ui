@@ -1,7 +1,7 @@
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf";
   import { Search, Mail, Eye } from "@lucide/svelte";
-  import { TextInput } from "../../../lib/components";
+  import TextInput from "./TextInput.svelte";
 
   const { Story } = defineMeta({
     title: "Components/TextInput",

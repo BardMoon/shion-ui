@@ -11,7 +11,7 @@
 </script>
 
 <!-- TODO: Additional Menu -->
-<div class="flex h-full">
+<div class="flex h-full w-fit">
   <Button
     fullWidth
     class="w-7 h-full flex items-center justify-center text-(--color-text) hover:bg-(--color-hover-bg)"

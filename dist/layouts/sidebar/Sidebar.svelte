@@ -20,7 +20,7 @@
     defaultSize = 260,
     minSize = 180,
     maxSize = 480,
-    collapseThreshold = 120,
+    collapseThreshold = 100,
   }: Props = $props();
 
   const topPanes = $derived(paneStore.list(items));
@@ -35,22 +35,16 @@
 
   function handleSelect(pane: Pane) {
     if (activeId === pane.id) {
-      close();
-    } else {
-      activeId = pane.id;
-      if (size < collapseThreshold) size = defaultSize;
+      activeId = null;
+      return;
     }
+    activeId = pane.id;
+    if (size < minSize) size = defaultSize;
   }
 
-  function close() {
+  function handleCollapse() {
     activeId = null;
   }
-
-  $effect(() => {
-    if (activePane && size < collapseThreshold) {
-      close();
-    }
-  });
 </script>
 
 <div class={["flex h-full", className]}>
@@ -78,6 +72,8 @@
       {defaultSize}
       {minSize}
       {maxSize}
+      {collapseThreshold}
+      oncollapse={handleCollapse}
     />
   {/if}
 </div>

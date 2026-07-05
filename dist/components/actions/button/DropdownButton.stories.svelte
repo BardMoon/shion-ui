@@ -1,8 +1,8 @@
 <script module lang="ts">
   import { defineMeta } from "@storybook/addon-svelte-csf";
-  import { FileText, Save, Trash2, Settings, LogOut } from "@lucide/svelte";
-  import { DropdownButton } from "../../../lib/components";
-  import type { MenuItemType } from "../../../lib/types";
+  import { FileText, Save, Trash2, Settings } from "@lucide/svelte";
+  import type { MenuItemType } from "../../../types";
+  import DropdownButton from "./DropdownButton.svelte";
 
   const { Story } = defineMeta({
     title: "Components/DropdownButton",

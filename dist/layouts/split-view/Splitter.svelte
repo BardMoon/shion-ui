@@ -9,9 +9,11 @@
     maxSize?: number;
     defaultSize?: number;
     overlay?: boolean;
+    collapseThreshold?: number;
     onresize?: (size: number) => void;
     onresizeend?: (size: number) => void;
     ondoubleclick?: () => void;
+    oncollapse?: () => void;
   };
 
   let {
@@ -22,15 +24,19 @@
     maxSize = Infinity,
     defaultSize = 0,
     overlay = false,
+    collapseThreshold,
     onresize,
     onresizeend,
     ondoubleclick,
+    oncollapse,
   }: Props = $props();
 
   let dragging = $state(false);
+  let collapsed = $state(false);
 
   function handlePointerDown(event: PointerEvent) {
     dragging = true;
+    collapsed = false;
     (event.currentTarget as HTMLElement).setPointerCapture(event.pointerId);
     window.addEventListener("pointermove", handlePointerMove);
     window.addEventListener("pointerup", handlePointerUp);
@@ -43,17 +49,33 @@
   function handlePointerMove(event: PointerEvent) {
     if (!dragging || !container) return;
     const rect = container.getBoundingClientRect();
-    const newSize =
+    const rawSize =
       orientation === "horizontal"
         ? event.clientX - rect.left
         : event.clientY - rect.top;
-    size = Math.max(minSize, Math.min(maxSize, newSize));
+
+    if (
+      collapseThreshold !== undefined &&
+      !collapsed &&
+      rawSize < collapseThreshold
+    ) {
+      collapsed = true;
+      oncollapse?.();
+      return;
+    }
+    if (collapsed && rawSize >= collapseThreshold!) {
+      collapsed = false;
+    }
+    if (collapsed) return;
+
+    size = Math.max(minSize, Math.min(maxSize, rawSize));
     onresize?.(size);
   }
 
   function handlePointerUp() {
     if (!dragging) return;
     dragging = false;
+    collapsed = false;
     window.removeEventListener("pointermove", handlePointerMove);
     window.removeEventListener("pointerup", handlePointerUp);
 
