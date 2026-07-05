@@ -1,5 +1,5 @@
 import type { Snippet } from "svelte";
-import type { MenuItemType } from "../../types/menu";
+import type { MenuItemType } from "../../../types";
 import ContextSubmenu from "./ContextSubmenu.svelte";
 type MenuLeafType = Extract<MenuItemType, {
     type: "item";

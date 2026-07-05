@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { DropdownMenu } from "bits-ui";
-  import type { MenuItemType } from "../../types/menu";
-  import DropdownItem from "../dropdown/DropdownItem.svelte";
-  import DropdownSubmenu from "../dropdown/DropdownSubmenu.svelte";
-  import Separator from "../misc/Separator.svelte";
-  import { getContextMenu } from "./context-menu.svelte.js";
+  import type { MenuItemType } from "$lib/types";
+  import { Separator } from "$lib/components";
+  import SubMenu from "../SubMenu.svelte";
+  import MenuItem from "../MenuItem.svelte";
+  import { getContextMenu } from "./context-menu.svelte";
 
   const contextMenu = getContextMenu();
 
@@ -47,7 +47,7 @@
           {#if isSeparator(item)}
             <Separator />
           {:else if item.children?.length}
-            <DropdownSubmenu {content} {item} onclick={contextMenu.hide} />
+            <SubMenu {content} {item} onclick={contextMenu.hide} />
           {:else}
             <DropdownMenu.Item
               disabled={item.disabled}
@@ -57,13 +57,9 @@
               }}
             >
               {#snippet child({ props })}
-                <DropdownItem
-                  {...props}
-                  shortcut={item.shortcut}
-                  tone={item.tone}
-                >
+                <MenuItem {...props} shortcut={item.shortcut} tone={item.tone}>
                   {@render content?.(item)}
-                </DropdownItem>
+                </MenuItem>
               {/snippet}
             </DropdownMenu.Item>
           {/if}

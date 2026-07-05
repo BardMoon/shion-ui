@@ -2,8 +2,8 @@
   import type { Snippet } from "svelte";
   import type { HTMLButtonAttributes } from "svelte/elements";
   import { ChevronRight } from "@lucide/svelte";
-  import { Button } from "../..";
-  import type { ButtonToneType } from "../../../types";
+  import { Button } from "..";
+  import type { ButtonToneType } from "../../types";
 
   type Props = HTMLButtonAttributes & {
     children: Snippet;

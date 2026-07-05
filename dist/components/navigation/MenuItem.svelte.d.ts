@@ -1,6 +1,6 @@
 import type { Snippet } from "svelte";
 import type { HTMLButtonAttributes } from "svelte/elements";
-import type { ButtonToneType } from "../../../types";
+import type { ButtonToneType } from "../../types";
 type Props = HTMLButtonAttributes & {
     children: Snippet;
     tone?: ButtonToneType;
@@ -9,6 +9,6 @@ type Props = HTMLButtonAttributes & {
     hasChildren?: boolean;
     onclick?: (e: MouseEvent) => void;
 };
-declare const DropdownItem: import("svelte").Component<Props, {}, "">;
-type DropdownItem = ReturnType<typeof DropdownItem>;
-export default DropdownItem;
+declare const MenuItem: import("svelte").Component<Props, {}, "">;
+type MenuItem = ReturnType<typeof MenuItem>;
+export default MenuItem;

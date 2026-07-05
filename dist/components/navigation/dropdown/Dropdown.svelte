@@ -4,8 +4,8 @@
   import { DropdownMenu } from "bits-ui";
   import { Separator } from "../..";
   import type { MenuItemType } from "../../../types";
-  import DropdownItem from "./DropdownItem.svelte";
-  import DropdownSubmenu from "./DropdownSubmenu.svelte";
+  import SubMenu from "./SubMenu.svelte";
+  import MenuItem from "../MenuItem.svelte";
 
   type Props = {
     trigger: Snippet<[{ props: Record<string, unknown> }]>;
@@ -55,7 +55,7 @@
         {:else}
           {@const menuItem = item}
           {#if menuItem.children?.length}
-            <DropdownSubmenu {content} item={menuItem} {onclick} />
+            <SubMenu {content} item={menuItem} {onclick} />
           {:else}
             <DropdownMenu.Item
               disabled={menuItem.disabled}
@@ -65,13 +65,13 @@
               }}
             >
               {#snippet child({ props })}
-                <DropdownItem
+                <MenuItem
                   {...props}
                   shortcut={menuItem.shortcut}
                   tone={menuItem.tone}
                 >
                   {@render content?.(menuItem)}
-                </DropdownItem>
+                </MenuItem>
               {/snippet}
             </DropdownMenu.Item>
           {/if}

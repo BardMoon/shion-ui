@@ -1,5 +1,5 @@
 import type { Snippet } from "svelte";
-import type { MenuItemType } from "../../types/menu";
+import type { MenuItemType } from "../../../types";
 type Props = {
     content?: Snippet<[MenuItemType]>;
 };

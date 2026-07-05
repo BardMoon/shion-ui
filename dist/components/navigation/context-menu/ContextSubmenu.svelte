@@ -1,9 +1,9 @@
 <script lang="ts">
   import type { Snippet } from "svelte";
   import { ContextMenu } from "bits-ui";
-  import type { MenuItemType } from "../../types/menu";
-  import DropdownItem from "../dropdown/DropdownItem.svelte";
-  import Separator from "../misc/Separator.svelte";
+  import type { MenuItemType } from "../../../types";
+  import { Separator } from "../..";
+  import MenuItem from "../MenuItem.svelte";
   import ContextSubmenu from "./ContextSubmenu.svelte";
 
   type MenuLeafType = Extract<MenuItemType, { type: "item" }>;
@@ -26,7 +26,7 @@
 <ContextMenu.Sub>
   <ContextMenu.SubTrigger>
     {#snippet child({ props })}
-      <DropdownItem
+      <MenuItem
         {...props}
         shortcut={item.shortcut}
         disabled={item.disabled}
@@ -34,7 +34,7 @@
         hasChildren
       >
         {@render content?.(item)}
-      </DropdownItem>
+      </MenuItem>
     {/snippet}
   </ContextMenu.SubTrigger>
 
@@ -60,13 +60,13 @@
             }}
           >
             {#snippet child({ props })}
-              <DropdownItem
+              <MenuItem
                 {...props}
                 shortcut={menuChild.shortcut}
                 tone={menuChild.tone}
               >
                 {@render content?.(menuChild)}
-              </DropdownItem>
+              </MenuItem>
             {/snippet}
           </ContextMenu.Item>
         {/if}
