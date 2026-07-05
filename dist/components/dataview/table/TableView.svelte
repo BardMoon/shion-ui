@@ -25,17 +25,13 @@
     onSelectionChange,
   }: Props = $props();
 
-  // --- ソート状態 ---
   let sortKey = $state<string | null>(null);
   let sortDir = $state<SortDirection>("asc");
 
-  // --- 選択状態 ---
   let selectedKeys = $state<Set<string | number>>(new Set());
 
-  // --- ページネーション状態 ---
   let currentPage = $state(1);
 
-  // ソート適用済みの行
   const sortedRows = $derived.by(() => {
     if (!sortKey) return rows;
     const key = sortKey as keyof T;
@@ -53,25 +49,21 @@
     });
   });
 
-  // ページ数(ページネーション無効時は常に1ページ扱い)
   const totalPages = $derived(
     showPagination ? Math.max(1, Math.ceil(sortedRows.length / pageSize)) : 1,
   );
 
-  // 現在ページを範囲内に補正
   $effect(() => {
     if (currentPage > totalPages) currentPage = totalPages;
     if (currentPage < 1) currentPage = 1;
   });
 
-  // 現在ページの行
   const pagedRows = $derived.by(() => {
     if (!showPagination) return sortedRows;
     const start = (currentPage - 1) * pageSize;
     return sortedRows.slice(start, start + pageSize);
   });
 
-  // 現在ページの全選択状態
   const allOnPageSelected = $derived(
     pagedRows.length > 0 && pagedRows.every((r) => selectedKeys.has(getKey(r))),
   );
