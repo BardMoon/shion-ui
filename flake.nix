@@ -1,5 +1,5 @@
 {
-  description = "Shiola UI";
+  description = "Shion UI";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
