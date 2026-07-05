@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ClassValue } from "svelte/elements";
-  import { Toolbar, Splitter, type Pane, paneStore } from "$lib/layouts";
+  import { Toolbar, Splitter, paneStore, type Pane } from "$lib/layouts";
 
   type Props = {
     class?: ClassValue;
@@ -10,6 +10,7 @@
     defaultSize?: number;
     minSize?: number;
     maxSize?: number;
+    collapseThreshold?: number;
   };
   let {
     items,
@@ -19,6 +20,7 @@
     defaultSize = 260,
     minSize = 180,
     maxSize = 480,
+    collapseThreshold = 120,
   }: Props = $props();
 
   const topPanes = $derived(paneStore.list(items));
@@ -32,8 +34,23 @@
   let panelEl: HTMLElement | undefined = $state();
 
   function handleSelect(pane: Pane) {
-    activeId = activeId === pane.id ? null : pane.id;
+    if (activeId === pane.id) {
+      close();
+    } else {
+      activeId = pane.id;
+      if (size < collapseThreshold) size = defaultSize;
+    }
   }
+
+  function close() {
+    activeId = null;
+  }
+
+  $effect(() => {
+    if (activePane && size < collapseThreshold) {
+      close();
+    }
+  });
 </script>
 
 <div class={["flex h-full", className]}>

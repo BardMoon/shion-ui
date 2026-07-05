@@ -7,6 +7,7 @@ type Props = {
     defaultSize?: number;
     minSize?: number;
     maxSize?: number;
+    collapseThreshold?: number;
 };
 declare const Sidebar: import("svelte").Component<Props, {}, "size">;
 type Sidebar = ReturnType<typeof Sidebar>;
