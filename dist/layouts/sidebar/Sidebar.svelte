@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import type { ClassValue } from "svelte/elements";
   import { Toolbar, Splitter, paneStore, type Pane } from "..";
 
@@ -26,7 +27,7 @@
   const topPanes = $derived(paneStore.list(items));
   const bottomPanes = $derived(paneStore.list(bottomItems));
 
-  let activeId = $state<string | null>(items[0] ?? null);
+  let activeId = $state<string | null>(untrack(() => items[0] ?? null));
   const activePane = $derived(
     [...topPanes, ...bottomPanes].find((p) => p.id === activeId) ?? null,
   );
