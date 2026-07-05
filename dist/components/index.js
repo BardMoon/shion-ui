@@ -13,3 +13,9 @@ export { default as RubberBandBand } from "./selection/rubber-band/RubberBandBan
 export { default as RubberBandSelectable } from "./selection/rubber-band/RubberBandSelectable.svelte";
 // === Display ===
 export { default as Separator } from "./display/Separator.svelte";
+// === Dataview ===
+export { default as TableView } from "./dataview/table/TableView.svelte";
+export { default as GridView } from "./dataview/grid/GridView.svelte";
+export { default as ListView } from "./dataview/list/ListView.svelte";
+export { default as TreeView } from "./dataview/tree/TreeView.svelte";
+export { treeStore } from "./dataview/tree/treeStore.svelte";

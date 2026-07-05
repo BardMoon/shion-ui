@@ -9,3 +9,10 @@ export { default as RubberBandArea } from "./selection/rubber-band/RubberBandAre
 export { default as RubberBandBand } from "./selection/rubber-band/RubberBandBand.svelte";
 export { default as RubberBandSelectable } from "./selection/rubber-band/RubberBandSelectable.svelte";
 export { default as Separator } from "./display/Separator.svelte";
+export { default as TableView } from "./dataview/table/TableView.svelte";
+export type { TableColumn, SortDirection } from "./dataview/table/types";
+export { default as GridView } from "./dataview/grid/GridView.svelte";
+export { default as ListView } from "./dataview/list/ListView.svelte";
+export { default as TreeView } from "./dataview/tree/TreeView.svelte";
+export { treeStore } from "./dataview/tree/treeStore.svelte";
+export type { TreeNodeData, TreeViewController } from "./dataview/tree/types";
