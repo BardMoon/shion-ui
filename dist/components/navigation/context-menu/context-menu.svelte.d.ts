@@ -1,11 +1,12 @@
 import type { MenuItemType } from "../../types";
+
 declare function createContextMenu(): {
-    readonly open: boolean;
-    readonly x: number;
-    readonly y: number;
-    readonly items: MenuItemType[];
-    show: (x: number, y: number, items: MenuItemType[]) => void;
-    hide: () => void;
+  readonly open: boolean;
+  readonly x: number;
+  readonly y: number;
+  readonly items: MenuItemType[];
+  show: (x: number, y: number, items: MenuItemType[]) => void;
+  hide: () => void;
 };
 export type ContextMenu = ReturnType<typeof createContextMenu>;
 /**
@@ -21,4 +22,3 @@ export declare function setContextMenu(): ContextMenu;
  * silently falling back to a shared/global instance.
  */
 export declare function getContextMenu(): ContextMenu;
-export {};
