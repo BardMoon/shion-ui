@@ -38,7 +38,7 @@
     {#snippet trigger({ props })}
       <Button
         {...props}
-        fullWidth
+        {fullWidth}
         variant="toggle"
         class={["menu-button", "h-full text-[13px]"]}
         selected={open}
