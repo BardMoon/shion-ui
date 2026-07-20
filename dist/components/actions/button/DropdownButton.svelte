@@ -5,6 +5,7 @@
   import { Dropdown, Button } from "../..";
 
   type Props = {
+    fullWidth?: boolean;
     content: Snippet<[MenuItemType]>;
     children: Snippet;
     class?: ClassValue;
@@ -13,8 +14,8 @@
     onOpenChange?: (open: boolean) => void;
     onhover?: () => void;
   };
-
   let {
+    fullWidth = false,
     content,
     children,
     class: className,

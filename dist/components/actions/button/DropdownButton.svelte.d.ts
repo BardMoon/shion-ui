@@ -2,6 +2,7 @@ import type { Snippet } from "svelte";
 import type { ClassValue } from "svelte/elements";
 import type { MenuItemType } from "../../../types";
 type Props = {
+    fullWidth?: boolean;
     content: Snippet<[MenuItemType]>;
     children: Snippet;
     class?: ClassValue;
