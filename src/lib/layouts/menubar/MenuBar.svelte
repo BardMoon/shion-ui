@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { DropdownButton, Separator } from "../../components";
-  import type { MenuItemType } from "../../types";
+  import { DropdownButton, Separator } from "$lib/components";
+  import type { MenuItemType } from "$lib/types";
 
   type Props = {
     menus?: MenuItemType[];

@@ -3,19 +3,32 @@ let
   treefmtModule = inputs.treefmt-nix.lib.evalModule pkgs {
     projectRootFile = "flake.nix"; # .git/config
     programs = {
-      # Nix
+      # === Nix ===
       nixfmt.enable = true;
       statix.enable = true;
       deadnix.enable = true;
 
-      # Util
+      # === Util ===
       shfmt.enable = true;
       just.enable = true;
       taplo.enable = true;
 
-      # Main
+      # === Main ===
       prettier.enable = true;
-      biome.enable = true;
+      biome = {
+        enable = true;
+        validate.schema = pkgs.fetchurl {
+          url = "https://biomejs.dev/schemas/2.4.16/schema.json";
+          hash = "sha256-LhHQlXaDu8dRCrycZljUwieDkZS5eBdLznL5gxuQ46k=";
+        };
+        settings = {
+          files.includes = [
+            "**"
+            "!**/dist/**"
+          ];
+          css.parser.tailwindDirectives = true;
+        };
+      };
     };
     settings = {
       global.excludes = [
