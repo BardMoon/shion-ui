@@ -118,75 +118,53 @@ do_update() {
     run "Update flake.lock" nix flake update
 }
 do_build() {
-    local options=(
+    local -a options=(
         "pp| ${SELECT}p${NC}npm:${SELECT}p${NC}ackage"
         "ps| ${SELECT}p${NC}npm:${SELECT}s${NC}torybook"
-        "$CANCEL_OPTION"
     )
-    local env
-    env=$(select_option "${options[@]}") || return
-    info "Selected: $env"
+    local -A actions=(
+        [pp]='run "" pnpm run build'
+        [ps]='run "" pnpm run build-storybook'
+    )
 
-    case $env in
-        pp)
-            pnpm run build
-            ;;
-        ps)
-            pnpm run build-storybook
-            ;;
-    esac
+    run_menu options actions
 }
 
 do_develop() {
-    local options=(
+    local -a options=(
         "pp| ${SELECT}p${NC}npm: ${SELECT}p${NC}ackage"
         "ps| ${SELECT}p${NC}npm: ${SELECT}s${NC}torybook"
-        "$CANCEL_OPTION"
     )
-    local env
-    env=$(select_option "${options[@]}") || return
-    info "Selected: $env"
+    local -A actions=(
+        [pp]='run "" pnpm run dev'
+        [ps]='run "" pnpm run storybook'
+    )
 
-    case $env in
-        pp)
-            pnpm run dev
-            ;;
-        ps)
-            pnpm run storybook
-            ;;
-    esac
+    run_menu options actions
 }
 do_release() {
-    local options=(
+    local -a options=(
         "patch"
         "minor"
         "major"
-        "$CANCEL_OPTION"
     )
-    local env=$(select_option "${options[@]}") || return
-    info "Selected: $env"
+    local -A actions=(
+        [patch]='run "" git commit -m "v0.1.4"
+                 run "" git tag v0.1.4
+                 run "" git push origin v0.1.4'
+        [minor]='run "" git commit -m "v0.2.0"
+                 run "" git tag v0.2.0
+                 run "" git push origin v0.2.0'
+        [major]='run "" git commit -m "v1.0.0"
+                 run "" git tag v1.0.0
+                 run "" git push origin v1.0.0'
+    )
 
     pnpm build
     pnpm build-storybook
     git add .
 
-    case $env in
-        patch)
-            git commit -m "v0.1.4"
-            git tag v0.1.4
-            git push origin v0.1.4
-            ;;
-        minor)
-            git commit -m "v0.2.0"
-            git tag v0.2.0
-            git push origin v0.2.0
-            ;;
-        major)
-            git commit -m "v1.0.0"
-            git tag v1.0.0
-            git push origin v1.0.0
-            ;;
-    esac
+    run_menu options actions
 }
 
 # --- Main ---
