@@ -19,3 +19,7 @@ export { default as Tooltip } from "./overlays/tooltip/Tooltip.svelte";
 export { default as RubberBandArea } from "./selection/rubber-band/RubberBandArea.svelte";
 export { default as RubberBandBand } from "./selection/rubber-band/RubberBandBand.svelte";
 export { default as RubberBandSelectable } from "./selection/rubber-band/RubberBandSelectable.svelte";
+// === Feedback ===
+export { default as Badge } from "./feedback/badge/Badge.svelte";
+export { default as Pin } from "./feedback/badge/Pin.svelte";
+export { default as TagPill } from "./feedback/badge/TagPill.svelte";
